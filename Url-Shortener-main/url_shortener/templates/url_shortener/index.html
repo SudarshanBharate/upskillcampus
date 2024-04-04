@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %}
+    <link rel="stylesheet" href="{% static 'url_shortener/style.css' %}"> {% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <title>URL Shortener</title>
+</head>
+
+<body class="bg-secondary-subtle">
+
+    <div class="container " style="width: 70%;margin-top: 8rem;">
+        <div class="card text-center shadow border border-success">
+            <div class="card-header bg-dark text-white shadow-lg">
+                <h4>URL Shortener</h4>
+            </div>
+
+            <div class="card-body mx-auto mt-2">
+                <form method="post" action="{% url 'index' %}">
+                    {% csrf_token %}
+                    <div class="input-group mb-3 w-200">
+                        <input type="url" class="form-control border-dark-subtle" id="original_url" name="original_url"
+                            required placeholder="Enter the URL here">
+                        <button class="btn btn-primary" type="submit">Shorten</button>
+                    </div>
+                    <input type="text" class="form-control border-warning-subtle" name="custom_suffix"
+                        placeholder="Custom URL (optional)">
+                </form>
+            </div>
+
+            <div class="card-footer bg-body-secondary">
+                {% if short_url %}
+                <p>Shortened URL: <a href="{% url 'redirect_to_original' short_url=short_url %}" id="copylink">{{short_url }}</a></p>
+                {% endif %}
+
+                <div class="mt-2">
+
+                    <!-- history-svg -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path
+                            d="M11.998 2.5A9.503 9.503 0 0 0 3.378 8H5.75a.75.75 0 0 1 0 1.5H2a1 1 0 0 1-1-1V4.75a.75.75 0 0 1 1.5 0v1.697A10.997 10.997 0 0 1 11.998 1C18.074 1 23 5.925 23 12s-4.926 11-11.002 11C6.014 23 1.146 18.223 1 12.275a.75.75 0 0 1 1.5-.037 9.5 9.5 0 0 0 9.498 9.262c5.248 0 9.502-4.253 9.502-9.5s-4.254-9.5-9.502-9.5Z">
+                        </path>
+                        <path
+                            d="M12.5 7.25a.75.75 0 0 0-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 0 0 .744-1.302L12.5 12.315V7.25Z">
+                        </path>
+                    </svg>
+
+                    <!-- History Button -->
+
+                    <a href="{% url 'url_mappings' %}">
+                        <button type="button" class="btn btn-success position-relative">
+                            History
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                10+
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </button>
+
+
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
