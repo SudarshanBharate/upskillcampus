@@ -1,5 +1,5 @@
 URL-Shortener
-We can short the URL-link and also Customize the name of the short link starting is short.
+We can short the URL-link and also Customize the name of the short link. The prefix of short link is "short".
 Following are some of the Screenshots
 
 
